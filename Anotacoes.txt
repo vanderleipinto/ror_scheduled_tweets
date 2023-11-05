@@ -22,3 +22,28 @@ Vamos fazer a inserção do User
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 Validando o campo email
+
+Adicionaremos em app/models/user.rb a linha 
+  validates :email, presence: true
+Isso vai assegurar que os dados serão validados na gravação antes de entrar no banco de dados.
+
+Outra maneira de fazer isso é ir no arquivo db/migrate e adicionar a informação  null: false
+  class CreateUsers < ActiveRecord::Migration[7.0]
+  def change
+    create_table :users do |t|
+      t.string :email , null: false
+      t.string :password_digest
+      t.timestamps
+    end
+  end
+end
+Assim não será permitida a inserção dos dados com o campo email sem dados.
+OBS: Para esse ultimo funcionar devemos fazer os comandos de rollback e migrar os dados novamente para ele atualizar a tabela.
+  rails db:rollback
+  rails db:migrate
+Esses dois comandos podem ser substituídos por 
+  rails db:redo
+
+
+
+
