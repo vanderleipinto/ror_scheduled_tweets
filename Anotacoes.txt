@@ -44,6 +44,74 @@ OBS: Para esse ultimo funcionar devemos fazer os comandos de rollback e migrar o
 Esses dois comandos podem ser substituídos por 
   rails db:redo
 
+Também podemos fazer uma validação regex para o email adicionando em app/models/user.rb:
 
+  validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "must be a valid email address" }
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Adicionando um usuário no sistema
+
+OBS: Atenção aos nomes de arquivos e funções. O Ruby segue rotas e classes com os mesmos nomes.
+
+Primeiro vamos criar a rota para a página de inserção de usuário em config/routes.rb
+
+get "sign_up" , to: "registrations#new"
+
+Criaremos o arquivo de controller app/controllers/registrations_controller com uma classe contendo a função new citada no routes
+dentro desse método vamos criar uma variável de instância (que pode ser acessada em views) @user.
+
+Vamos criar um arquivo chamado views/registrations/new.html.erb, lá teremos acesso à variável @user.
+
+Criaremos aqui o form para preencher os dados do usuário. Esse form é preenchido de uma maneira peculiar
+mas antes temos que adicionar um url helper nas rotas chamada users
+Em config/routes.rb adicionaremos um post request:
+
+  post "sign_up", to: "registrations#create"
+
+somente então criaremos o forms em views/registrations/new.html.erb:
+
+<%= form_with model: @user, url: sign_up_path do |form| %>
+      <%= form.text_field :email %>
+      <%= form.password_field :password %>
+      <%= form.password_field :password_confirmation %>
+      <%= form.submit %>
+<%end%>
+Se inspecionarmos o form acima no browser veremos que ele tem a action="sign_up" do method="post"
+Faremos uma formatação com bootstrap e inserção do botão submit.
+
+Ao preenchermos o formulário e submeter teremos erro pois não criamos o método create em registrations_controller.
+Criaremos então:
+
+    class RegistrationsController < ApplicationController
+      
+      def new
+        @user = User.new
+      end
+
+
+      def create
+        # params = {"email"=>"mauroinfraero@yahoo.com.br", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Create User"}
+        
+        @user = User.new(user_params)
+        
+        if @user.save if # saves to database correctly
+          redirect_to root_path, notice: "Successfully created account."
+        else      
+          render :new
+          # views/registrations/new.html.erb
+        end
+
+      end
+
+      private 
+
+      def user_params
+        params.require(:user).permit(:email,:password,:password_confirmation)
+        # means:  these are the only things we allow you to set
+      end
+    end
+
+Vamos atualizar o formulário para mostrar caso alg dêerrad
 
 
