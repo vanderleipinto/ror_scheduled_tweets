@@ -1,0 +1,15 @@
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.17.0/ext/bootsnap
+/usr/bin/ruby3.1 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20231105-7490-afgtra.rb extconf.rb
+creating Makefile
+
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.17.0/ext/bootsnap
+make DESTDIR\= clean
+
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.17.0/ext/bootsnap
+make DESTDIR\=
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.17.0/ext/bootsnap
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20231105-7490-auy4xe/bootsnap

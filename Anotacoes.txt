@@ -1,0 +1,24 @@
+Criando usuário para autenticação com password criptografado.
+
+Faremos a instalação da gem bcrypt que está comentada no gemfile, com isso podemos adicionar no app/models/user.rb a expressão has_secure_password
+assim faremos a inserção do user como no modelo a seguir.
+
+  rails generate model User email:string password_digest:string
+-> No irb podemos fazer as verificações dos dados no BD usando a instância User.all etc.
+
+
+
+Vamos fazer a inserção do User 
+  User.create({email:'vandecopinto@gmail.com',password:'password', password_confirmation:'password'})
+
+  Por conta do bcrypt ele faz a inserção do usuário com o password criptografado:
+        #<User:0x00007f679778a090
+        id: 1,
+        email: "vandecopinto@gmail.com",
+        password_digest: "[FILTERED]",
+        created_at: Sun, 05 Nov 2023 12:09:13.180389000 UTC +00:00,
+        updated_at: Sun, 05 Nov 2023 12:09:13.180389000 UTC +00:00>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Validando o campo email

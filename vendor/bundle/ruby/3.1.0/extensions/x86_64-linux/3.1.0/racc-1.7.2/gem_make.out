@@ -1,0 +1,15 @@
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/racc-1.7.2/ext/racc/cparse
+/usr/bin/ruby3.1 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20231105-7490-6qdh0b.rb extconf.rb
+creating Makefile
+
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/racc-1.7.2/ext/racc/cparse
+make DESTDIR\= clean
+
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/racc-1.7.2/ext/racc/cparse
+make DESTDIR\=
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/vanderlei/Documentos/RubyOnRails/scheduled_tweets/vendor/bundle/ruby/3.1.0/gems/racc-1.7.2/ext/racc/cparse
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20231105-7490-tb80qf/racc
