@@ -129,3 +129,27 @@ https://www.theodinproject.com/lessons/ruby-on-rails-turbo-drive
 https://issuecloser.com/blog/form-with-option-change-from-local-false-to-local-true
 -------------------
 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+https://www.youtube.com/watch?v=IzbQAj_tcfI&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=15&ab_channel=GoRails
+Criando o sign_in
+Usaremos o cookie para manter o usuário logado.
+Podemos criar um cookie em registrations_controller#create (cookies(:user_id)) mas isso seria fácil de manipular no browser para invasões.
+O Rails provê ferramentas com cookies que iremos usar. Em registrations_controller#create se criar o usuário ele vai iniciar a sessão com o id do usuário.
+  if @user.save
+    session[:user_id] = @user.id
+    ...
+
+vamos verificar a sessão em main_controller.rb
+  if session[:user_id]
+    @user = User.find(session[:user_id]) **ver OBS
+  end
+OBS: Caso a gente apague, via irb, o usário da sessão, ao atualizar a página e o find não achar o user, teremos um erro no sistema. Para corrigir isso vamos buscar o usuário
+com o find_by, porque caso ele não encontre não será gerado um erro e o sistema continuará funcionando sem sessão ativa.
+
+  @user = User.find_by(id: session[:user_id])
+
+No main controller já teremos os dados da sessão.
+
+  <%if @user%>
+    Logged in as <%=  @user.email%>
+  <%end%>
