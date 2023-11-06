@@ -16,13 +16,12 @@ class RegistrationsController < ApplicationController
       render :new
       # views/registrations/new.html.erb
     end
-
   end
 
   private 
 
   def user_params
-    params.require(:user).permit(:email,:password,:password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation)
     # means:  these are the only things we allow you to set
   end
 end

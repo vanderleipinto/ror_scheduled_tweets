@@ -112,6 +112,20 @@ Criaremos então:
       end
     end
 
-Vamos atualizar o formulário para mostrar caso alg dêerrad
+Vamos atualizar o formulário para mostrar caso alg dê errado.
+OBS: Há uma atualização no rails que inclui a biblioteca (Turbo Drive) que estava causando erro, eu adicionei data: { turbo: false} ao form para corrigir.
+Também podemos retirar a biblioteca no gemfile.
+-------------------
+The reason why you are not getting the error messages rendered is because now Turbo Drive is a default part of Rails 7.
+What is Turbo Drive?
+In simple terms, it's a tool that handles the link clicks and form submissions for you, sending requests to the server and updating just a portion of the page, not reloading the full page as we are accustomed. This is known as AJAX.
+So, what is the problem?
+Usually we redirect the browser to a different place if the submission succeeded (a 3XX code), but Turbo doesn't know how to handle error responses (4XX and 5XX codes), that's our case when the user submits invalid data (code 422) so nothing is updated and no error messages are shown.
+How to solve it?
+Just disable Turbo on your form  with `data: { turbo: false}`. If you are using Rails 5 or any previous version you also have to make the form local with `local: true`, that will disable AJAX as well (not needed for Rails 6 or 7).
 
+Here my references:
+https://www.theodinproject.com/lessons/ruby-on-rails-turbo-drive
+https://issuecloser.com/blog/form-with-option-change-from-local-false-to-local-true
+-------------------
 
