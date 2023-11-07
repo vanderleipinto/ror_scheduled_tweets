@@ -153,3 +153,29 @@ No main controller já teremos os dados da sessão.
   <%if @user%>
     Logged in as <%=  @user.email%>
   <%end%>
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+https://www.youtube.com/watch?v=fCunJskZkYI&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=16&ab_channel=GoRails
+Logging Out
+
+Criaremos uma rota para controller_session#destroy do tipo delete, 
+  delete "logout" to: "sessions#destroy"
+Criaremos um controller para sessions com o método destroy que vai apagar a sessão.
+  class SessionsController < ApplicationController
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path, notice: "Logged out"
+  end
+end
+
+IMPORTANTE: criaremos um BOTÃO na página pricipal para fazer o LOGOUT, já que por padrão com o o link possui o método get. Dessa forma ele vai criar um form (hidden) para esse botão para usar o method delete.
+
+  <%= button_to "Logout", logout_path, method: :delete %>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+https://www.youtube.com/watch?v=UC5LjuFDQM4&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=17&ab_channel=GoRails
+Login Form
+
+
+
