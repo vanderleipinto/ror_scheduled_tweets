@@ -177,5 +177,30 @@ IMPORTANTE: criaremos um BOTÃO na página pricipal para fazer o LOGOUT, já que
 https://www.youtube.com/watch?v=UC5LjuFDQM4&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=17&ab_channel=GoRails
 Login Form
 
+Primeiramente criaremos as rotas de new e create direcionando para SessionsController
+
+  get "sign_in",  to: "sessions#new"
+  post "sign_in", to: "sessions#create"
+
+em app/SessionsController já temos o método destroy, adicionaremos o new e o create.
+Como o destroy não precisa de uma view, criaremos a view para os demais em views/sessions/new.html.erb com o form para a inserção dos dados do usuário.
+    <h1>Sign In</h1>
+    <%= form_with url: sign_in_path do |form| %>
+        ...
+    <%end%>
+
+No SessionsController#create faremos a consulta do email e password para autenticação do usuário.
+
+      def create
+            user = User.find_by(email: params[:email])
+
+            if user.present? && user.authenticate(params[:password])
+              render plain: "Achou!"
+            end            
+        end
+OBS: O fato do model User ter o comando has_secure_password nos dá a possibilidade de usarmos a confirmação de senha e a validação (user.authenticate()). Fiz o atenticate com password_confirmation ao invés de password para funcionar, não sei o motivo
+também usei o comando render :new, status:  :unprocessable_entity para o caso do não reconhecimento do password ou email. Também não sei o motivo, mas tem haver com o turbo.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 
