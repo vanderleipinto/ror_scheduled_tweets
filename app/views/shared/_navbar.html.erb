@@ -8,12 +8,6 @@
       <li class="nav-item active">
         <%= link_to "Home", root_path, class: "nav-link"%>
       </li>
-      <li class="nav-item active">
-        <%= link_to "Sign Up", sign_up_path, class: "nav-link"%>
-      </li>
-      <li class="nav-item active">
-        <%= link_to "Sign In", sign_in_path, class: "nav-link"%>
-      </li>
       <li class="nav-item">
         <%= link_to "About", about_path, class: "nav-link" %>
       </li>
@@ -21,5 +15,24 @@
         <a class="nav-link disabled" href="#">Disabled</a>
       </li> %>
     </ul>
-  </div>
-</nav>
+    <ul class ="navbar-nav ms-auto mb-2 mb-lg-0">
+      <% if Current.user %>
+        <li class="nav-item">
+          <span>
+            <%=  Current.user.email%>
+          </span>
+        </li>
+        <li class="nav-item">
+          <%= button_to "Logout", logout_path, method: :delete %>
+        </li>
+      <%else%>
+        <li class="nav-item">
+          <li class="nav-item">
+            <%= link_to "Log In", sign_in_path, class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", sign_up_path, class: "nav-link"%>
+          </li>
+        <%end%>
+      </div>
+    </nav>

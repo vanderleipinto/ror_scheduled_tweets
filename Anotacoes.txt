@@ -203,4 +203,27 @@ também usei o comando render :new, status:  :unprocessable_entity para o caso d
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
+https://www.youtube.com/watch?v=hlpKyOb5yLc&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=18&ab_channel=GoRails
+Accessing the Current User
+
+Vamos remover a função do main_controller para o ApplicationController para ele rodar em toda a aplicação.
+      def set_current_user
+        if session[:user_id]
+          Current.user = User.find_by(id: session[:user_id])
+        end
+      end
+
+Então criamos um model chamado current.rb que terá uma classe que herdará de ActiveSupport::CurrentAttributes attribute :user
+Assim quando o usuário logar os dados dele estarão aí.
+A primeira coisa que tem nesse arquivo é o before_action :set_current_user. Que vai verificar se o usuário tem sessão e vai manter o usuário logado. 
+Agora em nossos views podemos ter a informação que o usuário está logado por meio do Current.user. Vamos usar isso no navbar na parte direita.
+
+Então no navbar teremos o <% if Current.user %> para colocar links de logado ou não.
+
+Agora vamos acrescentar uma rota para editar password e também um patch para update
+  get "password", to: "password#edit"
+  patch "password", to: "password#update"
+
+A rota de password é para o usuário já logado.
+Criaremos um controller para password com o before_action: require_user_logged_in!, mas esse método será escrito na classe pai (ApplicationController)
 
