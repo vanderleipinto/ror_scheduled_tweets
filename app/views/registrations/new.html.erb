@@ -1,8 +1,8 @@
 <h1>Sign Up</h1>
 <%= form_with model: @user, data: { turbo: false}, url: sign_up_path do |form| %>
-  <% if @user.errors.any? %>
+  <% if form.object.errors.any? %>
     <div class="alert alert-danger">
-      <%= @user.errors.full_messages.each do |messages| %>
+      <%= form.object.errors.full_messages.each do |messages| %>
         <div><%= messages%></div>
       <% end %>
     </div>
@@ -13,11 +13,11 @@
   </div>
   <div class="mb-3">
     <%=form.label :password %>
-    <%= form.password_field :password_confirmation, class:"form-control", placeholder:"Password" %>
+    <%= form.password_field :password, class:"form-control", placeholder:"Password" %>
   </div>
   <div class="mb-3">
     <%=form.label :password_confirmation %>
-    <%= form.password_field :password, class:"form-control", placeholder:"Password" %>
+    <%= form.password_field :password_confirmation, class:"form-control", placeholder:"Password" %>
   </div>
   <div class="mb-3">
     <%= form.submit %>

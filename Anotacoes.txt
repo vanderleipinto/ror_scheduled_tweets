@@ -198,7 +198,9 @@ No SessionsController#create faremos a consulta do email e password para autenti
               render plain: "Achou!"
             end            
         end
-OBS: O fato do model User ter o comando has_secure_password nos dá a possibilidade de usarmos a confirmação de senha e a validação (user.authenticate()). Fiz o atenticate com password_confirmation ao invés de password para funcionar, não sei o motivo
+
+OBS: O fato do model User ter o comando has_secure_password nos dá a possibilidade de usarmos a confirmação de senha e a validação (user.authenticate()). 
+(ignorar essa linha, funcionando normalmente em views/registrations/new.html.erb) Fiz o authenticate com password_confirmation ao invés de password para funcionar, não sei o motivo
 também usei o comando render :new, status:  :unprocessable_entity para o caso do não reconhecimento do password ou email. Também não sei o motivo, mas tem haver com o turbo.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -224,10 +226,41 @@ Então no navbar teremos o <% if Current.user %> para colocar links de logado ou
 https://www.youtube.com/watch?v=YWdwts1cgjI&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=19&ab_channel=GoRails
 Edit Password
 Agora vamos acrescentar uma rota para editar password e também um patch para update
-  get "password", to: "password#edit"
+  get "password", to: "password#edit"  #vai ser adicionado mais tarde um alias.
   patch "password", to: "password#update"
 
 A rota de password é para o usuário já logado.
-Criaremos um controller para password com o before_action: require_user_logged_in!, mas esse método será escrito na classe pai (ApplicationController)
+Criaremos um controller para password. Ele chamará o método before_action: require_user_logged_in!, que será escrito na classe pai (ApplicationController)
+      def before_action: require_user_logged_in!
+        if Current.user.nil?
+          redirect_to sign_in_path, alert: "You must be signed in to do that."
+        end
+      end
+Ele vai verificar se o usuário está logado. Caso não ele manda para a página de login
+Vamos alterar no navbar o span de usuário logado para link de editar password. Esse link vai mandar para o edit_password_path, que lá no routes terá um alias para url específica
+routers.rb
+    get "password", to: "passwords#edit", as: :edit_password
 
-.
+Agora vamos criar o view para a edição do password app/views/passwords/edit.html.erb e aqui vamos ter mais um form usando o model @user
+    <%form_with model: @user, url: edit_password_path do |form| %> ... (copiado de sign_up e adaptado para password)
+
+Uma vez criado o view, vamos no controler fazer o update.
+
+    def update
+    if Current.user.update(password_params)
+        redirect_to root_path, notice: "Password Updated"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+end
+
+Uma alteração que fizemos no formulário foi utilizar o Current.user ao invés de @user
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
