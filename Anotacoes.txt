@@ -264,3 +264,8 @@ end
 Uma alteração que fizemos no formulário foi utilizar o Current.user ao invés de @user
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
+https://www.youtube.com/watch?v=5azbhq4z3kw&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=20&ab_channel=GoRails
+Forgot Your Password
+
+Aqui vamos fazer a confirmação de alteração de password por email, enviaremos email e tokens específicos.
+Será um projeto mais pra frente pois agora vou ver algumas aulas de teste.
