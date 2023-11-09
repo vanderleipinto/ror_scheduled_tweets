@@ -220,6 +220,9 @@ Agora em nossos views podemos ter a informação que o usuário está logado por
 
 Então no navbar teremos o <% if Current.user %> para colocar links de logado ou não.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+https://www.youtube.com/watch?v=YWdwts1cgjI&list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56&index=19&ab_channel=GoRails
+Edit Password
 Agora vamos acrescentar uma rota para editar password e também um patch para update
   get "password", to: "password#edit"
   patch "password", to: "password#update"
@@ -227,3 +230,4 @@ Agora vamos acrescentar uma rota para editar password e também um patch para up
 A rota de password é para o usuário já logado.
 Criaremos um controller para password com o before_action: require_user_logged_in!, mas esse método será escrito na classe pai (ApplicationController)
 
+.
